@@ -3,29 +3,27 @@ export class Frame {
     constructor() {
 
     }
-
-    createBanner(status) {
-        if (status && status === true) {
-            const banner = document.createElement('div');
-            banner.className = 'cc-frame-banner';
-            const buttons = document.createElement('div');
-            buttons.className = 'cc-frame-buttons';
-            const bannerParagraph = document.createElement('p');
-            bannerParagraph.textContent = 'En poursuivant votre navigation, vous acceptez le dépôt de cookies tiers destinés à vous proposer des vidéos, des boutons de partage, des remontées de contenus de plateformes sociales ';
-            const accept = document.createElement('button');
-            accept.className = 'cc-accept-all';
-            accept.textContent = 'Accepter';
-            const customize = document.createElement('button');
-            customize.className = 'cc-customize';
-            customize.textContent = 'Personaliser';
-            banner.append(bannerParagraph);
-            banner.append(buttons);
-            buttons.append(accept);
-            buttons.append(customize);
-            document.body.append(banner);
-        }
+    // Create HTML Banner on Top of Page
+    createBanner() {
+        const banner = document.createElement('div');
+        banner.className = 'cc-frame-banner';
+        const buttons = document.createElement('div');
+        buttons.className = 'cc-frame-buttons';
+        const bannerParagraph = document.createElement('p');
+        bannerParagraph.textContent = 'En poursuivant votre navigation, vous acceptez le dépôt de cookies tiers destinés à vous proposer des vidéos, des boutons de partage, des remontées de contenus de plateformes sociales ';
+        const accept = document.createElement('button');
+        accept.className = 'cc-accept-all';
+        accept.textContent = 'Accepter';
+        const customize = document.createElement('button');
+        customize.className = 'cc-customize';
+        customize.textContent = 'Gérer mes cookies';
+        banner.append(bannerParagraph);
+        banner.append(buttons);
+        buttons.append(accept);
+        buttons.append(customize);
+        document.body.append(banner);
     }
-
+    // Create HTML cookies admin conscent for users
     createFrame() {
         const bg = document.createElement('div');
         bg.className = 'cc-frame-background';
@@ -38,7 +36,7 @@ export class Frame {
         const title = document.createElement('h2');
         title.textContent = 'Gestion de vos préférences sur les cookies';
         const description = document.createElement('p');
-        description.className = 'Certaines fonctionnalités de ce site (partage de contenus sur les réseaux sociaux, lecture directe de vidéos) s’appuient sur des services proposés par des sites tiers. Ces fonctionnalités déposent des cookies permettant notamment à ces sites de tracer votre navigation. Ces cookies ne sont déposés que si vous donnez votre accord. Vous pouvez vous informer sur la nature des cookies déposés, les accepter ou les refuser soit globalement pour l’ensemble du site et l’ensemble des services, soit service par service.';
+        description.textContent = 'Certaines fonctionnalités de ce site (partage de contenus sur les réseaux sociaux, lecture directe de vidéos) s’appuient sur des services proposés par des sites tiers. Ces fonctionnalités déposent des cookies permettant notamment à ces sites de tracer votre navigation. Ces cookies ne sont déposés que si vous donnez votre accord. Vous pouvez vous informer sur la nature des cookies déposés, les accepter ou les refuser soit globalement pour l’ensemble du site et l’ensemble des services, soit service par service.';
         document.body.append(bg);
         document.body.append(content);
         document.body.append(contentContainer);
@@ -46,8 +44,8 @@ export class Frame {
         contentContainer.append(close);
         contentContainer.append(title);
         contentContainer.append(description);
-
     }
+    // Create HTML Service line with buttons
     createServices(services) {
         const content = document.querySelector('.cc-frame-content-container');
         services.forEach(function (s) {
@@ -68,10 +66,8 @@ export class Frame {
             line.appendChild(buttons);
             content.appendChild(line);
         });
-
-
     }
-
+    // Destroy Frame
     deleteFrame() {
         document.querySelector('.cc-frame-content').remove();
         document.querySelector('.cc-frame-background').remove();

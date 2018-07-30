@@ -1,19 +1,20 @@
 import { Styles } from '../styles/main.scss'
 import { Core } from '../scripts/classes/core'
-import { Params } from '../scripts/classes/params'
-import { Advert } from '../scripts/components/advert'
 import { Frame } from '../scripts/classes/frame'
 import '../images/cancel.svg'
 import {Service} from "./classes/services";
+import {FacebookService} from "./classes/services/facebookService";
 
 
 document.addEventListener('DOMContentLoaded', () => {
+    const core = new Core();
     const frame = new Frame();
     const services = [];
-    services.push(new Service("facebook"));
+    services.push(new FacebookService("facebook"));
     services.push(new Service("google-analytics"));
     services.push(new Service("twitter"));
-    const banner = frame.createBanner(true);
+    core.setCookie('cookies-conscent', services, 30);
+    const banner = frame.createBanner();
         const acceptAll = document.querySelector('.cc-accept-all');
         const customize = document.querySelector('.cc-customize');
         acceptAll.addEventListener('click', function (event) {
