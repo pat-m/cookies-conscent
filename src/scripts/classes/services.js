@@ -1,8 +1,31 @@
+import {Core} from "./core";
+
 export class Service {
-    constructor(name, url, category) {
+
+    constructor(key, type, name, uri, consent, cookies = []) {
+        this._key = key;
+        this._type = type;
         this._name = name;
-        this._url = url;
-        this._category = category;
+        this._uri = uri;
+        this._consent = consent;
+        this._cookies = cookies;
+    }
+
+
+    get key() {
+        return this._key;
+    }
+
+    set key(value) {
+        this._key = value;
+    }
+
+    get type() {
+        return this._type;
+    }
+
+    set type(value) {
+        this._type = value;
     }
 
     get name() {
@@ -13,20 +36,27 @@ export class Service {
         this._name = value;
     }
 
-    get url() {
-        return this._url;
+    get uri() {
+        return this._uri;
     }
 
-    set url(value) {
-        this._url = value;
+    set uri(value) {
+        this._uri = value;
     }
 
-
-    get category() {
-        return this._category;
+    get consent() {
+        return this._consent;
     }
 
-    set category(value) {
-        this._category = value;
+    set consent(value) {
+        this._consent = value;
+    }
+
+    get cookies() {
+        return this._cookies;
+    }
+
+    set cookies(value) {
+        this._cookies = value;
     }
 }

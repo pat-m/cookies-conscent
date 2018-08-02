@@ -126,4 +126,9 @@ export class Core {
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
+    getCookie(name) {
+        const pattern = new RegExp(name + '=.[^;]*');
+        const matched = document.cookie.match(pattern);
+        return matched;
+    }
 }
