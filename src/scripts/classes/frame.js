@@ -15,7 +15,7 @@ export class Frame {
         accept.className = 'cc-accept-all';
         accept.textContent = 'Accepter';
         const customize = document.createElement('button');
-        customize.className = 'cc-customize';
+        customize.className = 'cc-frame-customize';
         customize.textContent = 'Gérer mes cookies';
         banner.append(bannerParagraph);
         banner.append(buttons);
@@ -23,6 +23,8 @@ export class Frame {
         buttons.append(customize);
         document.body.append(banner);
     }
+
+
     // Create HTML cookies admin conscent for users
     createFrame() {
         const bg = document.createElement('div');
@@ -64,7 +66,11 @@ export class Frame {
             consent.id = "cc-" + s.key;
             slider.className = 'slider';
             consent.type = 'checkbox';
-            consent.checked = true;
+            if (s.consent === 'wait') {
+                consent.checked = true
+            } else {
+                consent.checked = s.consent;
+            }
             consentLabel.append(consent);
             consentLabel.append(slider);
             description.textContent = s.name;
@@ -75,7 +81,7 @@ export class Frame {
         });
     }
     // Destroy Frame
-    deleteFrame() {
+    closeFrame() {
         document.querySelector('.cc-frame-content').remove();
         document.querySelector('.cc-frame-background').remove();
     }

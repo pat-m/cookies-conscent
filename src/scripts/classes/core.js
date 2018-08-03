@@ -1,6 +1,8 @@
+import {Frame} from "./frame";
+
 export class Core {
 
-    constructor(version, cdn, user, lang, services, added, idprocessed, state, launch, parameters, isAjax, reloadThePage) {
+    constructor(version, cdn, user, lang, services = [], added, idprocessed, state, launch, parameters, isAjax, reloadThePage) {
         this._version = version;
         this._cdn = cdn;
         this._user = user;
@@ -126,9 +128,51 @@ export class Core {
         var expires = "expires="+ d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
-    getCookie(name) {
-        const pattern = new RegExp(name + '=.[^;]*');
-        const matched = document.cookie.match(pattern);
-        return matched;
+    getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    checkCookie() {
+        console.log(document.cookie.split(';'));
+    }
+
+    initBanner(services) {
+        let isOpen = true;
+        const frame = new Frame();
+        frame.createBanner();
+        this.customizeCookies(frame, services);
+        return isOpen;
+    }
+    customizeCookies(frame, services) {
+        const customize = document.querySelector('.cc-frame-customize');
+        customize.addEventListener('click', el => {
+            frame.createFrame();
+            frame.createServices(services);
+            const close = document.querySelector('.cc-frame-close');
+            close.addEventListener('click', el => {
+                frame.closeFrame();
+            });
+            const userConsent = document.querySelector('.cc-frame-service-buttons');
+            userConsent.addEventListener('change', el => {
+                services.forEach(function (service) {
+                    if(el.target.id.replace('cc-', '') === service.key) {
+                        service.consent = el.target.checked;
+                    }
+                });
+                this.setCookie('cookies-privacy', JSON.stringify(services), 30);
+            });
+        });
     }
 }
